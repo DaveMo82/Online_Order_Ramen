@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "name": "Ramen Soup",
+      "price": 14,
+      "image": "/Shoyu.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Vegetable Ramen",
+      "price": 8.99,
+      "image": "/vegetable_ramen.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Shoyu Ramen",
+      "price": 10.99,
+      "image": "/shoyu_ramen.jpg"
+    }
+  ]
+  
