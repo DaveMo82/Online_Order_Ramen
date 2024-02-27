@@ -6,6 +6,7 @@ import Card from "./pages/Card";
 import Checkout from "./pages/Checkout";
 import Create from "./pages/Create"
 import Favorite from "./pages/Favorite";
+import RamenCheck from "./pages/RamenCheck";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/favorite",
         element: <Favorite />,
+      },
+      {
+        path:"/RamenCheck/:id",
+        element: <RamenCheck />,
       }
     ],
   },

@@ -11,6 +11,7 @@ const Home = () => {
           <section className="mt-12">
             <img src="/assets/RamenBar.png" alt="ramen" className="w-5/6 mx-auto"/>
             <Ramen />
+            <p className="text-center text-3xl mb-12"> Or create your own one</p>
           </section>
         </div>
        <Footer />
