@@ -1,14 +1,13 @@
 @tailwind base;
-@tailwind components;
+/* @tailwind components; */
 @tailwind utilities;
 
-.container {
+ .container {
     display: grid;
     grid-template-areas: 
     "header header header"
-    "table table aside"
     "table table aside";
-grid-template-columns: auto 1fr;
+grid-template-columns: auto auto auto;
 }
 
 .header {
