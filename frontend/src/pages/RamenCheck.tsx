@@ -2,12 +2,12 @@ import menuItems from "../data/menuItems.json";
 import Menu from "../components/Menu";
 import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const RamenCheck = () => {
   const { id } = useParams<{ id: string }>();
   const [extra, setExtra] = useState<string[]>([]);
-  const selectedRamen = menuItems.find((item) => item.id.toString() === id);
+ const [ selectedRamen, setSelectedRamen] = useState<any | any>(menuItems.find((item) => item.id.toString() === id))
 
 
   const handleExtra = (value: string, price:string) => {
@@ -26,24 +26,35 @@ const RamenCheck = () => {
 
   }, parseFloat(selectedRamen.price)) : 0;
 
+  const addToCard = () => {
+      localStorage.setItem('extra', JSON.stringify(extra));
+      localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+  };
+
+const handleSelectRamen = (id: String) => {
+  const selectedItem = menuItems.find((item) => item.id.toString() === id);
+  setSelectedRamen(selectedItem);
+}
+
   return (
     <div className="flex flex-col h-screen font-Rubik">
       <Menu />
-      <div className="flex flex-grow justify-items-center bg-container container">
+      <div className="flex flex-grow  bg-container container relative">
         <section className="flex flex-wrap justify-center header">
           {menuItems.map((items: any) => (
             <div key={items.id} className="flex flex-col mx-4 my-6">
               <img
                 src={`/assets/${items.image}`}
                 alt={items.name}
-                className="w-48"
+                className={`w-48 cursor-pointer hover:scale-125 transform transition duration-1000 ${selectedRamen && selectedRamen.id === items.id ? "border-4 border-header rounded-xl" : ""}`}
+                onClick={() => handleSelectRamen(items.id.toString())}
               />
               <h2 className="mt-2">{items.name}</h2>
               <p>{items.price}</p>
             </div>
           ))}
         </section>
-        <div className="table ml-44">
+        <div className="table justify-self-center">
           <div>
             <h1 className="font-bold text-2xl mb-4 text-left">Spice level</h1>
             <div className="mb-3 w-96">
@@ -101,14 +112,22 @@ const RamenCheck = () => {
             </div>
           </div>
         </div>
-        <div className="border-y-2 border-l-4 aside border-header h-full rounded-xl">
+        <div className="border-y-2 border-l-4 aside border-header h-full rounded-xl justify-self-end">
         <h2 className=" px-6 mt-2 text-center">You choose {selectedRamen?.name}</h2>
         <div className="ml-6 mt-6">
           {extra.map((item, index) => (
             <li key={index}>{item}</li>
           ))}
           </div>
-        <p>Total:{totalPrice}</p>
+          <div className="flex justify-end items-center h-full flex-col pb-16 absolute bottom-0 pl-8">
+        <p className="font-bold text-2xl mb-2">Total:{totalPrice} €</p>
+        <button
+        onClick={addToCard}
+        className="border-2 border-header shadow-lg p-2 rounded-lg cursor-pointer hover: hover:bg-header"
+      >
+        add to card
+      </button>
+      </div>
         </div>
       </div>
       <Footer />
