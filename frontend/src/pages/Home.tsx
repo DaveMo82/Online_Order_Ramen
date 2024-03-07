@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import Ramen from "../components/Ramen";
 
 const Home = () => {
+ 
   return (
     <>
       <div className="flex flex-col h-screen font-Rubik">

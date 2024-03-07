@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         element: <Favorite />,
       },
       {
-        path:"/RamenCheck/:id",
+        path:"/RamenCheck/",
         element: <RamenCheck />,
       }
     ],

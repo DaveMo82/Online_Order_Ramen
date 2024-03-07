@@ -8,7 +8,7 @@ const Ramen = () => {
       <div className="flex flex-wrap mt-12">
         {menuItems.map((items: any) => (
           <div key={items.id} className="flex flex-col items-center w-1/3 my-4">
-            <Link to={`/RamenCheck/${items.id}`}>
+            <Link to={`/RamenCheck/`}>
             <img
               src={`/assets/${items.image}`}
               alt={items.name}

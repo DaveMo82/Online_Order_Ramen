@@ -1,13 +1,18 @@
 import menuItems from "../data/menuItems.json";
 import Menu from "../components/Menu";
 import Footer from "../components/Footer";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 
 const RamenCheck = () => {
-  const { id } = useParams<{ id: string }>();
+
   const [extra, setExtra] = useState<string[]>([]);
- const [ selectedRamen, setSelectedRamen] = useState<any | any>(menuItems.find((item) => item.id.toString() === id))
+  const [itemsCount, setItemsCount] = useState(0);
+ const [ selectedRamen, setSelectedRamen] = useState<any[]>(() => {
+  const storedRamen = localStorage.getItem('selectedRamen');
+  return storedRamen ? JSON.parse(storedRamen) : [];
+ })
+ const [selectedItem, setSelectedItem] = useState<{id: number, price: string, name:string}[] >([])
+
 
 
   const handleExtra = (value: string, price:string) => {
@@ -19,21 +24,30 @@ const RamenCheck = () => {
     }
   };
 
-  const totalPrice = selectedRamen ? extra.reduce((acc, curr) => {
-    const matches = curr.match(/\d+€/);
-    const extraPrice = matches ? matches[0] : "0€";
-   return acc + parseFloat(extraPrice.replace("€", ""));
-
-  }, parseFloat(selectedRamen.price)) : 0;
+  const totalPrice = selectedItem.reduce((acc, ramen) => {
+    return acc + parseFloat(ramen.price) + extra.reduce((extraAcc, extraItem) => {
+      const matches = extraItem.match(/\d+€/);
+      const extraPrice = matches ? parseFloat(matches[0].replace("€", "")) : 0;
+      return extraAcc + extraPrice;
+    }, 0);
+  }, 0);
 
   const addToCard = () => {
-      localStorage.setItem('extra', JSON.stringify(extra));
-      localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+    const totalPrice = 0;
+    setItemsCount(itemsCount + 1);
+    setExtra([]);
+    setSelectedItem([]);
+
+    localStorage.setItem('extra', JSON.stringify(extra));
+    localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+    localStorage.setItem('items', JSON.stringify(itemsCount +1));
+    localStorage.setItem('selectedRamen', JSON.stringify(selectedRamen));
   };
 
 const handleSelectRamen = (id: String) => {
-  const selectedItem = menuItems.find((item) => item.id.toString() === id);
-  setSelectedRamen(selectedItem);
+  const selectedItem = menuItems.filter((item) => item.id.toString() === id);
+  setSelectedItem(selectedItem);
+  setSelectedRamen([...selectedRamen, ...selectedItem]);
 }
 
   return (
@@ -46,11 +60,11 @@ const handleSelectRamen = (id: String) => {
               <img
                 src={`/assets/${items.image}`}
                 alt={items.name}
-                className={`w-48 cursor-pointer hover:scale-125 transform transition duration-1000 ${selectedRamen && selectedRamen.id === items.id ? "border-4 border-header rounded-xl" : ""}`}
+                className={`w-48 cursor-pointer hover:scale-125 transform transition duration-1000 ${selectedItem.find((ramen) => ramen.id === items.id) ? "border-4 border-header rounded-xl" : ""}`}
                 onClick={() => handleSelectRamen(items.id.toString())}
               />
               <h2 className="mt-2">{items.name}</h2>
-              <p>{items.price}</p>
+              <p>{items.price}</p> 
             </div>
           ))}
         </section>
@@ -112,14 +126,14 @@ const handleSelectRamen = (id: String) => {
             </div>
           </div>
         </div>
-        <div className="border-y-2 border-l-4 aside border-header h-full rounded-xl justify-self-end">
-        <h2 className=" px-6 mt-2 text-center">You choose {selectedRamen?.name}</h2>
+        <div className="border-y-2 border-l-4 aside border-header h-full rounded-xl justify-self-end min-w-64">
+        <h2 className=" px-6 mt-2 text-center">You choose {selectedItem?.[0]?.name}</h2>
         <div className="ml-6 mt-6">
           {extra.map((item, index) => (
             <li key={index}>{item}</li>
           ))}
           </div>
-          <div className="flex justify-end items-center h-full flex-col pb-16 absolute bottom-0 pl-8">
+          <div className="flex justify-end items-center flex-col pb-16 absolute bottom-0 pl-8">
         <p className="font-bold text-2xl mb-2">Total:{totalPrice} €</p>
         <button
         onClick={addToCard}

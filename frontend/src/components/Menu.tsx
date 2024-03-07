@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 const Menu = () => {
+const itemsCount = localStorage.getItem('items');
+
   return (
     <header className="bg-header flex justify-between items-center p-4 ">
       <Link to="/">
@@ -19,7 +21,7 @@ const Menu = () => {
             <Link to="/favorite">
               <img
                 src="/assets/favorite.png"
-                alt="einkaufwagen"
+                alt="favorite"
                 className="w-6"
               />
             </Link>
@@ -31,6 +33,7 @@ const Menu = () => {
                 alt="einkaufwagen"
                 className="w-6"
               />
+              <div className="absolute top-7 right-12 w-4 h-4 text-white">{itemsCount}</div>
             </Link>
           </li>
           <li>
