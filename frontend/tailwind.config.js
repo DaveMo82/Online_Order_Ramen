@@ -9,6 +9,7 @@ module.exports = {
         header: "#ACB0BA", 
         footer: "#D4D7DC",
         container: "#F3DFDA",
+        button: "#EE7C2C",
       },
     },
   },

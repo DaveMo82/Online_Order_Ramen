@@ -3,6 +3,8 @@ import Footer from "../components/Footer";
 import Ramen from "../components/Ramen";
 
 const Home = () => {
+
+
  
   return (
     <>

@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 
-const Menu = () => {
-const itemsCount = localStorage.getItem('items');
+interface MenuProps {
+  handleLoginClick?: () => void;
+}
+
+const Menu: React.FC<MenuProps> = ({ handleLoginClick }) => {
+  const itemsCount = localStorage.getItem("items");
+
 
   return (
     <header className="bg-header flex justify-between items-center p-4 ">
@@ -19,11 +24,7 @@ const itemsCount = localStorage.getItem('items');
         <ul className="list-none flex text-xl">
           <li className="inline mr-4">
             <Link to="/favorite">
-              <img
-                src="/assets/favorite.png"
-                alt="favorite"
-                className="w-6"
-              />
+              <img src="/assets/favorite.png" alt="favorite" className="w-6" />
             </Link>
           </li>
           <li className="inline mr-4">
@@ -33,11 +34,19 @@ const itemsCount = localStorage.getItem('items');
                 alt="einkaufwagen"
                 className="w-6"
               />
-              <div className="absolute top-7 right-12 w-4 h-4 text-white">{itemsCount}</div>
+              <div className="absolute top-7 right-12 w-4 h-4 text-white">
+                {itemsCount}
+              </div>
             </Link>
           </li>
           <li>
-            <img src="/assets/login.png" alt="login" className="w-6" />
+            <Link to="/Login">
+            <img
+              src="/assets/login.png"
+              alt="login"
+              className="w-6 cursor-pointer"
+            />
+            </Link>
           </li>
         </ul>
       </nav>

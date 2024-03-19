@@ -25,6 +25,7 @@ const Card = () => {
   }, []);
 
 
+
   return (
     <div className="flex flex-col h-screen font-Rubik">
       <Menu />
