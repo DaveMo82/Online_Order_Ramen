@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Menu from "./Menu";
-import { useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -8,6 +8,28 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [closeForm, setCloseForm] = useState(true);
+
+
+   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    fetch("http://localhost:8080/user", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+      }),
+    }).then((response) => {
+      alert("User created");
+      setCloseForm(true);
+      navigate("/login");
+    });
+  };
+  
+  
 
     const toggleClose = () => {
       setCloseForm(false);
@@ -25,7 +47,7 @@ const Register = () => {
             >
               X
             </div>
-          <form className="">
+          <form onSubmit={handleSubmit} className="">
             <h1 className="mt-12 text-center text-4xl">Register</h1>
             <div className="flex flex-col justify-center items-center gap-4">
             <div className="mt-10">
