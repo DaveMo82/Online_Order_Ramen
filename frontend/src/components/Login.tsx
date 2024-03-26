@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Menu from "./Menu";
 import { Link, useNavigate } from "react-router-dom";
+import { error } from "console";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [closeForm, setCloseForm] = useState(true);
 
@@ -12,6 +13,26 @@ const Login = () => {
     setCloseForm(false);
     navigate("/");
   };
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const bodyData = {
+      username: username,
+      password: password,
+    };
+
+    fetch("http://localhost:8080/login", {
+      method:"post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(bodyData)
+    }).then((response) => response.json())
+    alert("Login success")
+  navigate("/")
+   };
+   
+
 
   return (
     <>
@@ -25,15 +46,15 @@ const Login = () => {
             >
               X
             </div>
-            <form className="">
+            <form onSubmit={handleSubmit} className="">
               <h1 className="mt-8 text-center text-4xl">Login</h1>
               <div className="flex flex-col justify-center items-center gap-4">
                 <div className="mt-12">
                   <input
-                    placeholder="E-Mail"
-                    type="email"
+                    placeholder="Username"
+                    type="text"
                     className="border-2 rounded-xl pl-4"
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={(event) => setUsername(event.target.value)}
                   />
                 </div>
                 <div>
