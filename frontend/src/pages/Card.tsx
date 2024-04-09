@@ -7,7 +7,7 @@ const Card = () => {
   const [extra, setExtra] = useState<string[]>([]);
   const [totalPrice, setStoreTotalPrice] = useState<number>(0);
   const [selectedRamen, setSelectedRamen] = useState<any[]>([]);
-
+console.log(extra)
   useEffect(() => {
     const storedExtra = localStorage.getItem("extra");
     const storeTotalPrice = localStorage.getItem("totalPrice");
@@ -20,10 +20,19 @@ const Card = () => {
       setStoreTotalPrice(JSON.parse(storeTotalPrice));
     }
     if (storeSelectedRamen) {
-      setSelectedRamen(JSON.parse(storeSelectedRamen));
+      const parsedSelectedRamen = JSON.parse(storeSelectedRamen);
+
+        const updateSelectRamen = parsedSelectedRamen.map((ramenItems : any) => {
+        const ramenExtras = extra.filter( extraItem => ramenItems.extra.includes(extraItem)
+      );
+      return{
+        ...ramenItems,
+        extras: ramenExtras
+      };
+      });
+      setSelectedRamen (updateSelectRamen);
     }
   }, []);
-
 
 
   return (
@@ -38,7 +47,7 @@ const Card = () => {
         <div className="relative flex flex-col border-4 border-header rounded-lg max-h-72 min-w-64 mt-24">
           <h2 className="text-3xl text-center mb-4">Your card</h2>
           {selectedRamen.map((ramen, index) => (
-            <p key={index}>{ramen.name}</p>
+            <p key={index} className="text-center mb-6">Your ramen: <li>{ramen.name}</li></p>
           ))}
           {extra.map((extras, index) => (
             <p key={index} className="text-center">{extras}</p>

@@ -13,7 +13,8 @@ const RamenCheck = () => {
  })
  const [selectedItem, setSelectedItem] = useState<{id: number, price: string, name:string}[] >([])
 
-
+console.log("extra", extra);
+console.log("Selected Item:", selectedItem);
 
   const handleExtra = (value: string, price:string) => {
     const extraItem = value + "" + price;
@@ -33,7 +34,6 @@ const RamenCheck = () => {
   }, 0);
 
   const addToCard = () => {
-    const totalPrice = 0;
     setItemsCount(itemsCount + 1);
     setExtra([]);
     setSelectedItem([]);
@@ -44,11 +44,18 @@ const RamenCheck = () => {
     localStorage.setItem('selectedRamen', JSON.stringify(selectedRamen));
   };
 
-const handleSelectRamen = (id: String) => {
-  const selectedItem = menuItems.filter((item) => item.id.toString() === id);
-  setSelectedItem(selectedItem);
-  setSelectedRamen([...selectedRamen, ...selectedItem]);
-}
+  const handleSelectRamen = (id: String) => {
+    const selectedItem = menuItems.find((item) => item.id.toString() === id);
+    if (selectedItem) {
+      const selectedRamenWithExtras = {
+        ...selectedItem,
+        extras: extra
+      };
+      setSelectedItem([selectedRamenWithExtras]);
+      setSelectedRamen((prevSelectedRamen) => [...prevSelectedRamen, selectedRamenWithExtras]);
+    };
+    }
+  
 
 
   return (

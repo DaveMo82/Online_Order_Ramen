@@ -1,7 +1,6 @@
 import { FormEvent, useState } from "react";
 import Menu from "./Menu";
 import { Link, useNavigate } from "react-router-dom";
-import { error } from "console";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,6 +12,7 @@ const Login = () => {
     setCloseForm(false);
     navigate("/");
   };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -27,12 +27,19 @@ const Login = () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(bodyData)
-    }).then((response) => response.json())
-    alert("Login success")
-  navigate("/")
-   };
-   
-
+    })
+    .then((response) => response.json())
+    .then(() => {
+      if (username.trim() !== "") { 
+        localStorage.setItem("username", JSON.stringify(username));
+      }
+      alert("Login success");
+      navigate("/");
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+  };
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Menu from "./Menu";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 
 const Register = () => {
     const navigate = useNavigate();

@@ -6,6 +6,8 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> = ({ handleLoginClick }) => {
   const itemsCount = localStorage.getItem("items");
+  const usernameWith = localStorage.getItem("username");
+  const username = usernameWith?.replace(/"/g, '');
 
 
   return (
@@ -49,6 +51,7 @@ const Menu: React.FC<MenuProps> = ({ handleLoginClick }) => {
             </Link>
           </li>
         </ul>
+      <div className="">Hello {username}</div>
       </nav>
     </header>
   );

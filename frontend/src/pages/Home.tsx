@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col h-screen font-Rubik">
-        <Menu />
+        <Menu/>
         <div className="flex flex-grow justify-center bg-container">
           <section className="mt-12">
             <img src="/assets/RamenBar.png" alt="ramen" className="w-5/6 mx-auto"/>
