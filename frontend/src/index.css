@@ -1,0 +1,22 @@
+@tailwind base;
+/* @tailwind components; */
+@tailwind utilities;
+
+ .container {
+    display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-template-rows: repeat(2, auto);
+grid-column-gap: 10px;
+}
+
+.header {
+    grid-area: 1/1/2/4;
+}
+
+.aside {
+    grid-area: 2/3/3/4;
+}
+
+.table {
+    grid-area: 2/2/3/3;
+}

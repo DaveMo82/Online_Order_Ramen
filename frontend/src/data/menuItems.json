@@ -1,0 +1,39 @@
+[
+    {
+      "id": 1,
+      "name": "Shoyu",
+      "price": "14€",
+      "image": "/Shoyu.png"
+    },
+    {
+      "id": 2,
+      "name": "Miso",
+      "price": "13€",
+      "image": "/Miso.png"
+    },
+    {
+      "id": 3,
+      "name": "Tonkotsu",
+      "price": "15€",
+      "image": "/Tonkotsu.png"
+    },
+    {
+      "id": 4,
+      "name": "Vegan",
+      "price": "12€",
+      "image": "/Vegan.png"
+    },
+    {
+      "id": 5,
+      "name": "Spica Miso",
+      "price": "14€",
+      "image": "/Spica Miso.png"
+    },
+    {
+      "id": 6,
+      "name": "Tsukemen",
+      "price": "15€",
+      "image": "/Tsukemen.png"
+    }
+  ]
+  
